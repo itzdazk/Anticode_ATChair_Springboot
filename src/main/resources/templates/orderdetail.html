@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="fragments :: header">
+
+</head>
+
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:replace="fragments :: sidebar">
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments :: topbar"></nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <!-- /.container-fluid -->
+            <div class="row">
+                <div class="col-md-12 grid-margin">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3>
+                                    Order Detail
+                                </h3>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                                <div class="col-lg-6 col-lx-4">
+                                    <div class="single_confirmation_details">
+                                        <h4 class="font-weight-bold">Order info</h4>
+                                        <hr>
+                                        <h6>Order Id <span th:text="': '+${thisOrder.id}">></span></h6>
+                                        <h6>Order Date<span th:text="': '+${thisOrder.orderDate}">></span></h6>
+                                        <h6>Total <span th:text="': $'+${thisOrder.totalPrice}">></span></h6>
+                                        <h6>Payment Method: Cash</h6>
+                                        <h6>status<span th:text="': '+${thisOrder.orderStatus}">></span></h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-lx-4">
+                                    <div class="single_confirmation_details">
+                                        <h4 class="font-weight-bold">Billing Address</h4>
+                                        <hr>
+                                        <h6>Fullname <span th:text="': '+${thisOrder.lastName} + ' ' +${thisOrder.firstName}">></span></h6>
+                                        <h6>Email<span th:text="': '+${thisOrder.username}">></span></h6>
+                                        <h6>Phone Number<span th:text="': $'+${thisOrder.phoneNumber}">></span></h6>
+                                        <h6>Address<span th:text="': '+${thisOrder.address}">></span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if = "${success}" class="text-center alert alert-success">
+                                <p th:text = "${success}"></p>
+                            </div>
+                            <div th:if = "${error}" class="text-center alert alert-danger">
+                                <p th:text = "${error}"></p>
+                            </div>
+                            <hr>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" d="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" >#</th>
+                                        <th scope="col" >ID</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col" colspan="2">Product</th>
+                                        <th scope="col">Unit Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th scope="col" >#</th>
+                                        <th scope="col" >ID</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col" colspan="2">Product</th>
+                                        <th scope="col">Unit Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                    </tfoot>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each = "orderDetail,state : ${orderDetailList}">
+                                        <td th:text="${state.count}"></td>
+                                        <td th:text="${orderDetail.product.id}"></td>
+                                        <td><img src="" style="height: 40px; width: 40px;" th:src = "*{'data:image/jpeg;base64,' + {orderDetail.product.image}}"></td>
+                                        <th colspan="2"><span th:text="${orderDetail.product.name}"></span></th>
+                                        <th th:text="'$'+${orderDetail.unitPrice}"></th>
+                                        <th th:text="'x'+${orderDetail.quantity}"></th>
+                                        <th> <span th:text="'$'+${orderDetail.totalPrice}"></span></th>
+                                    <tr>
+                                        <th colspan="7" >Shipping fee</th>
+                                        <th><span th:text="'5%: $'+${thisOrder.shippingFee}"></span></th>
+                                    </tr>
+                                    </tr>
+                                    <th colspan="7">Subtotal</th>
+                                    <th> <span class="text-danger" th:text="'$'+${thisOrder.totalPrice}"></span></th>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                            <hr>
+
+                            <hr />
+                                <div class="col-md-6">
+                                        <h4 th:if = "${thisOrder.orderStatus != 'Cancelled'}">
+                                            Click to change order status
+                                        </h4>
+                                        <h4 th:if = "${thisOrder.orderStatus == 'Cancelled'}">
+                                            Order has been cancelled
+                                        </h4>
+                                    <div class="input-group mt-3">
+                                                <a th:if = "${thisOrder.orderStatus == 'Cancelled'}"  class="btn btn-white">Cancelled</a>
+                                                <a th:if = "${thisOrder.orderStatus == 'Pending'}" th:href="@{/admin/update-order-detail-status-completed/{id} (id = ${thisOrder.id})}" class="btn btn-warning">Pending</a>
+                                                <a th:if = "${thisOrder.orderStatus == 'Completed'}" th:href = "@{/admin/update-order-detail-status-pending/{id} (id = ${thisOrder.id})}" class="btn btn-primary">Completed</a>
+                                        </div>
+                                </div>
+                                <br />
+                                <div class="col-md-7">
+                                    <h4 class="mt-3">
+                                        Order Status:
+                                        <span class="font-weight-bold" th:text="${thisOrder.orderStatus}"></span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a th:replace="fragments :: scroll">
+</a>
+
+<!-- Logout Modal-->
+
+<!-- Bootstrap core JavaScript-->
+<div th:replace="fragments :: script"></div>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    let table = new DataTable('#dataTable');
+</script>
+<script th:src="@{/js/categories.js}"></script>
+
+</body>
+
+</html>

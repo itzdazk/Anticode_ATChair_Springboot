@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="layout :: header_shop">
+
+</head>
+<style>
+  .search_input{
+    display:none;
+  }
+</style>
+
+<body>
+<header th:replace="layout :: menu_shop">
+
+</header>
+
+
+<section class="breadcrumb breadcrumb_bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="breadcrumb_iner">
+          <div class="breadcrumb_iner_item">
+            <h2>Cart Products</h2>
+            <p>Home <span>-</span>Cart Products</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cart_area padding_top">
+  <div class="container">
+    <div class="cart_inner">
+      <div th:if="${check}" class="text-center alert-warning">
+        <p th:text="${check}"></p>
+      </div>
+      <div class="table-responsive "  th:if="${check == null}">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="cartItem : ${shoppingCart.cartItem}">
+            <td>
+              <div class="media">
+                <div class="d-flex">
+                  <img  th:src="*{'data:image/jpeg;base64,' + cartItem.product.image}" alt=""  style="max-width: 200px;"/>
+                </div>
+                <div class="media-body">
+                  <p th:text="${cartItem.product.name}"></p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <h5 th:text="'$' + ${cartItem.product.costPrice}"></h5>
+            </td>
+            <form th:action="@{/update-cart}" method="post">
+              <input type="hidden" name="id" th:value="${cartItem.product.id}">
+            <td>
+              <div class="product_count">
+                <input class="input-number" type="text" th:value="${cartItem.quantity}" min="0" step="1" name="quantity">
+              </div>
+            </td>
+            <td>
+              <h5 th:text="'$' + ${cartItem.totalPrice}"></h5>
+            </td>
+              <td>
+                <button type="submit" name="action" value="update" title="Update"
+                        class="btn ">Update
+                </button>
+              </td>
+              <td>
+                <button type="submit" name="action" value="delete" title="Delete"
+                        class="btn "><i class="fa fa-window-close" aria-hidden="true"></i>
+                </button>
+              </td>
+            </form>
+          </tr>
+          <tr class="bottom_button">
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <h5>Subtotal</h5>
+            </td>
+            <td>
+              <h5 class="text-danger" th:text = "'$'+${subTotal}"></h5>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="checkout_btn_inner float-right">
+          <a class="btn_1" th:href="@{/allproduct}">Continue Shopping</a>
+          <a class="btn_1 checkout_btn_1" th:if="${subTotal == 0}" aria-readonly="true">Proceed to checkout</a>
+          <a class="btn_1 checkout_btn_1" th:if="${subTotal > 0}"  th:href="@{/check-out}">Proceed to checkout</a>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<footer th:replace="layout :: footer_shop">
+</footer>
+</body>
+
+<div th:replace="layout :: script_shop"></div>

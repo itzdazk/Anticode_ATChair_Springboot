@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="fragments :: header">
+</head>
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:replace="fragments :: sidebar">
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments :: topbar"></nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-md-12 grid-margin">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between">
+                                    <h3>
+                                        Update Product
+
+                                    </h3>
+                                    <a
+                                            type="button"
+                                            class="btn btn-primary"
+                                            th:href = "@{/admin/products}"
+                                    >
+                                        Back
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <form class="form-horizontal" th:action="@{/admin/update-product/{id} (id = ${productDto.id})}" method="post" enctype="multipart/form-data" th:object = "${productDto}">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+
+                                                <div class="form-group row">
+                                                    <label for="product_name" class="col-sm-2 col-form-label">Name</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="product_name" th:field = "*{name}" name="product_name" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-group row">
+                                                    <label for="categories" class="col-sm-2 col-form-label">Category</label>
+                                                    <div class="col-sm-10 ms-2">
+                                                        <select id="categories" th:field = "*{category}" name="categories" class="col-sm-12 form-select" required >
+                                                            <option th:value = "null">-SELECT-</option>
+                                                            <option th:each = "category : ${categories}"
+                                                                    th:value = "${category.id}"
+                                                                    th:text = "${category.name}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group row">
+                                                    <label for="description" class="col-sm-2 col-form-label">DES </label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control"  id="description" th:field = "*{description}" name="description" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="available_quantity" class="col-sm-2 col-form-label">Quantity</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control"  id="available_quantity" th:field = "*{currentQuantity}" name="available_quantity" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="price" class="col-sm-2 col-form-label">Price</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control"  id="price" name="price" th:field = "*{costPrice}" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+
+
+                                                    <label for="imageProduct" class="col-sm-2 col-form-label mt-2">Image</label>
+                                                    <div class="col-sm-10">
+                                                        <input class="form-control"  id="imageProduct" name="imageProduct" type="file" required>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+
+                                                <div class="form-group row">
+                                                    <label for="brand" class="col-sm-2 col-form-label">Brand</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="brand" th:field = "*{brand}" name="brand" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="width" class="col-sm-2 col-form-label">Width</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="width" th:field = "*{width}" name="width" required>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
+                                                    <label for="width" class="col-sm-2 col-form-label">Height</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="height" th:field = "*{height}" name="height" required>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
+                                                    <label for="depth" class="col-sm-2 col-form-label">Depth</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="depth" th:field = "*{depth}" name="depth" required>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="form-group row">
+                                                    <label for="weight" class="col-sm-2 col-form-label">Weight</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="weight" th:field = "*{weight}" name="weight" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="material" class="col-sm-2 col-form-label">Material</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="material" th:field = "*{material}" name="material" required>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-12 ">
+                                                <div class="form-group row">
+                                                    <label for="width" class="col-12 col-form-label">Long Description</label>
+                                                    <div class="col-12">
+                                                        <textarea class="form-control input-sm" rows="5" th:field="*{longDES}" />
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </form>
+                                </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a th:replace="fragments :: scroll">
+</a>
+
+<!-- Logout Modal-->
+
+<!-- Bootstrap core JavaScript-->
+<div th:replace="fragments :: script"></div>
+<script th:src="@{/js/categories.js}"></script>
+
+</body>
+
+</html>

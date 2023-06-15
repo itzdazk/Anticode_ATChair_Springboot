@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="layout :: header_shop">
+
+</head>
+<style>
+  .search_input{
+    display:none;
+  }
+</style>
+
+<body>
+<header th:replace="layout :: menu_shop">
+
+</header>
+
+
+<section class="breadcrumb breadcrumb_bg ">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumb_iner">
+                    <div class="breadcrumb_iner_item">
+                        <h2>Order</h2>
+                        <p>Home <span>-</span> Order</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="container my-5 py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="section_tittle text-center">
+                    <h2>My Order</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div th:if = "${success}" class="text-center alert alert-success">
+                <p th:text = "${success}"></p>
+            </div>
+            <div th:if = "${error}" class="text-center alert alert-danger">
+                <p th:text = "${error}"></p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Order Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Shipping fee</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Detail</th>
+                        <th scope="col">Cancel</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Order Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Shipping fee</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Detail</th>
+                        <th scope="col">Cancel</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <tr th:each = "order,state : ${orders}">
+                        <td th:text="${state.count}"></td>
+                        <th scope="row" th:text = "${order.orderDate}"></th>
+                        <th scope="row" th:text = "${order.orderStatus}"></th>
+                        <td th:text = "${order.shippingFee}"></td>
+                        <td th:text = "${order.totalPrice}"></td>
+                        <td>
+                            <a th:href="@{/order-detail-{id}(id = ${order.id})}" class="btn btn-primary">
+                                Detail
+                            </a>
+                        </td>
+                        <td th:if="${order.orderStatus != 'Cancelled'}">
+                            <a th:href = "@{/cancel-order-{id}(id = ${order.id})}" class="btn btn-danger">Cancel</a></td>
+                        </td>
+                        <td th:if="${order.orderStatus == 'Cancelled'}">
+                           Canceled
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<section class="product_list section_padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="section_tittle text-center">
+                    <h2>Best Sellers <span>shop</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product_list_slider owl-carousel">
+                    <div class="single_product_list_slider">
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-lg-3 col-sm-6" th:each="product : ${productRandom}">
+                                <form th:action="@{/add-to-cart}" method="post" >
+                                    <div class="single_product_item"   >
+                                        <a th:href = "@{/product-detail-{id}(id = ${product.id})}">
+                                            <img th:src="*{'data:image/jpeg;base64,' + product.image}" alt="Image">
+                                        </a>
+                                        <div class="single_product_text">
+                                            <h4 th:text="${product.name}" ></h4>
+                                            <h3 th:text="'$' + ${product.costPrice}"></h3>
+                                            <a href="#" class="add_cart">
+                                                <input type="hidden" value="1" name="quantity">
+                                                <input type="hidden" th:value="${product.id}" name="id">
+                                                <input type="submit" class="addcart btn btn-outline text-danger text-uppercase font-weight-bold p-0 h1" value="+ add to cart">
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<footer th:replace="layout :: footer_shop">
+</footer>
+</body>
+
+<div th:replace="layout :: script_shop"></div>

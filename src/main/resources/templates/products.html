@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="fragments :: header">
+
+</head>
+
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:replace="fragments :: sidebar">
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments :: topbar"></nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <!-- /.container-fluid -->
+            <div class="row">
+                <div class="col-md-12 grid-margin">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3>
+                                    Product
+
+                                </h3>
+                                <a
+                                        type="button"
+                                        class="btn btn-primary"
+                                        th:href = "@{/admin/add-product}"
+                                >
+                                    Add Product
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div th:if = "${success}" class="text-center alert alert-success">
+                                <p th:text = "${success}"></p>
+                            </div>
+                            <div th:if = "${error}" class="text-center alert alert-danger">
+                                <p th:text = "${error}"></p>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Update</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Update</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    <tr th:each = "product,state : ${products}">
+                                        <td th:text="${state.count}"></td>
+                                        <th scope="row" th:text = "${product.id}"></th>
+                                        <th scope="row" th:text = "${product.name}"></th>
+                                        <td th:text = "${product.category.name}"></td>
+                                        <td th:text = "${product.costPrice}"></td>
+                                        <td th:text = "${product.currentQuantity}"></td>
+                                        <td><img src="" style="height: 40px; width: 40px;" th:src = "*{'data:image/jpeg;base64,' + {product.image}}"></td>
+                                        <td>
+                                            <a th:if = "${product.activated == false}" th:href="@{/admin/enable-product/{id} (id = ${product.id})}" class="btn btn-warning">Enable</a>
+                                            <a th:if = "${product.deleted == false}" th:href = "@{/admin/delete-product/{id} (id = ${product.id})}" class="btn btn-primary">Disable</a>
+                                        </td>
+                                        <td><a th:href="@{/admin/update-product/{id} (id = ${product.id})}" class="btn btn-primary">Update</a></td>
+
+                                        <td>
+                                            <a th:href="@{/admin/destroy-product/{id} (id = ${product.id})}" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a th:replace="fragments :: scroll">
+</a>
+
+<!-- Logout Modal-->
+
+<!-- Bootstrap core JavaScript-->
+<div th:replace="fragments :: script"></div>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    let table = new DataTable('#dataTable');
+</script>
+<script th:src="@{/js/categories.js}"></script>
+
+</body>
+
+</html>

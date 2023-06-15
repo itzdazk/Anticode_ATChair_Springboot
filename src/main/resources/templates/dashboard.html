@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="fragments :: header">
+
+</head>
+
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:replace="fragments :: sidebar">
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments :: topbar"></nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <!-- /.container-fluid -->
+            <div class="row">
+                <div class="col-md-12 grid-margin">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h3>
+                                    Dashboard
+
+                                </h3>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-lg-3 col-6">
+                                        <div class="btn-sm btn-danger">
+                                            <h3 th:text="${countPendingOrder}"></h3>
+                                            <h5>Pending order</h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-6">
+                                        <div class="btn-sm btn-primary">
+                                            <h3 th:text="${countCompletedOrder}">10</h3>
+                                            <h5>Completed order</h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-6">
+                                        <div class="btn-sm btn-warning">
+                                            <h3 th:text="${totalProducts}">12</h3>
+                                            <h5>Products</h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-6">
+                                        <div class="btn-sm btn-dark">
+                                            <h3 th:text="${totalUser}"></h3>
+                                            <h5>User</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+<!--                                <div class="row mt-5">-->
+<!--                                    <div class="col">-->
+<!--                                        <div class="card">-->
+<!--                                            <div class="card-header border-0">-->
+<!--                                                <div class="d-flex justify-content-between">-->
+<!--                                                    <h3 class="card-title">Đơn hàng</h3>-->
+
+<!--                                                    <div>-->
+<!--                                                        Tháng-->
+<!--                                                        <select-->
+
+<!--                                                                class="custom-select"-->
+<!--                                                                data-group="filter-month"-->
+<!--                                                                style="width: 100px"-->
+<!--                                                        >-->
+<!--                                                            <option value="2023-1">01-2023</option>-->
+<!--                                                            <option value="2023-2">02-2023</option>-->
+<!--                                                            <option value="2023-3">03-2023</option>-->
+<!--                                                            <option value="2023-4">04-2023</option>-->
+<!--                                                            <option value="2023-5" selected>-->
+<!--                                                                05-2023-->
+<!--                                                            </option>-->
+<!--                                                        </select>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col">-->
+<!--                                                        <div class="input-group my-3">-->
+<!--                                                            <select-->
+<!--                                                                    name="oreder_status"-->
+<!--                                                                    class="form-select"-->
+
+<!--                                                            >-->
+<!--                                                                <option>&#45;&#45; Loại đơn hàng &#45;&#45;</option>-->
+<!--                                                                <option>Xuất</option>-->
+<!--                                                                <option>Nhập</option>-->
+<!--                                                            </select>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col">-->
+<!--                                                        <div class="input-group my-3">-->
+<!--                                                            <select-->
+<!--                                                                    name="oreder_status"-->
+<!--                                                                    class="form-select"-->
+<!--                                                                    id=""-->
+<!--                                                            >-->
+<!--                                                                <option>&#45;&#45; Trạng thái &#45;&#45;</option>-->
+<!--                                                                <option>Chưa giải quyết</option>-->
+<!--                                                                <option>Đang xử lý</option>-->
+<!--                                                                <option>Đang giao hàng</option>-->
+<!--                                                                <option>Hoàn tất</option>-->
+<!--                                                                <option>Hủy bỏ</option>-->
+<!--                                                            </select>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="card-body">-->
+<!--                                                <div class="d-flex justify-content-between">-->
+<!--                                                    <h3 class="card-title">-->
+<!--                                                        Tháng trước:-->
+<!--                                                        <span class="fw-bold text-primary">75</span>-->
+<!--                                                    </h3>-->
+<!--                                                    <h3 class="card-title">-->
+<!--                                                        Tháng hiện tại:-->
+<!--                                                        <span class="fw-bold text-primary">197</span>-->
+<!--                                                    </h3>-->
+<!--                                                </div>-->
+
+<!--                                                <div class="position-relative mb-4">-->
+<!--                                                    <div class="chartjs-size-monitor">-->
+<!--                                                        <div class="chartjs-size-monitor-expand">-->
+<!--                                                            <div class=""></div>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="chartjs-size-monitor-shrink">-->
+<!--                                                            <div class=""></div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <canvas-->
+<!--                                                            class="myChart1"-->
+<!--                                                            width="1365"-->
+<!--                                                            height="682"-->
+<!--                                                            style="-->
+<!--                                    display: block;-->
+<!--                                    box-sizing: border-box;-->
+<!--                                    height: 455px;-->
+<!--                                    width: 910px;-->
+<!--                                  "-->
+<!--                                                    ></canvas>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="row mt-5">-->
+<!--                                    <div class="col">-->
+<!--                                        <div class="card">-->
+<!--                                            <div class="card-header border-0">-->
+<!--                                                <div class="d-flex justify-content-between">-->
+<!--                                                    <h3 class="card-title">Doanh thu</h3>-->
+
+<!--                                                    <div>-->
+<!--                                                        Tháng-->
+<!--                                                        <select-->
+<!--                                                                id="drpMonthBillFilter"-->
+<!--                                                                class="custom-select"-->
+<!--                                                                data-group="filter-month"-->
+<!--                                                                style="width: 100px"-->
+<!--                                                        >-->
+<!--                                                            <option value="2023-1">01-2023</option>-->
+<!--                                                            <option value="2023-2">02-2023</option>-->
+<!--                                                            <option value="2023-3">03-2023</option>-->
+<!--                                                            <option value="2023-4">04-2023</option>-->
+<!--                                                            <option value="2023-5" selected>-->
+<!--                                                                05-2023-->
+<!--                                                            </option>-->
+<!--                                                        </select>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="card-body">-->
+<!--                                                <div class="d-flex justify-content-between">-->
+<!--                                                    <h3 class="card-title">-->
+<!--                                                        Tháng trước:-->
+<!--                                                        <span class="fw-bold text-primary"-->
+<!--                                                        >103,750,000</span-->
+<!--                                                        >-->
+<!--                                                    </h3>-->
+<!--                                                    <h3 class="card-title">-->
+<!--                                                        Tháng hiện tại:-->
+<!--                                                        <span class="fw-bolder text-primary"-->
+<!--                                                        >376,080,000</span-->
+<!--                                                        >-->
+<!--                                                    </h3>-->
+<!--                                                </div>-->
+
+<!--                                                <div class="position-relative mb-4">-->
+<!--                                                    <div class="chartjs-size-monitor">-->
+<!--                                                        <div class="chartjs-size-monitor-expand">-->
+<!--                                                            <div class=""></div>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="chartjs-size-monitor-shrink">-->
+<!--                                                            <div class=""></div>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <canvas-->
+<!--                                                            class="myChart2"-->
+<!--                                                            width="1365"-->
+<!--                                                            height="682"-->
+<!--                                                            style="-->
+<!--                                    display: block;-->
+<!--                                    box-sizing: border-box;-->
+<!--                                    height: 455px;-->
+<!--                                    width: 910px;-->
+<!--                                  "-->
+<!--                                                    ></canvas>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div class="row mt-5">
+                                    <h3>Pending Order</h3>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">User</th>
+                                                <th scope="col">Order Date</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Shipping fee</th>
+                                                <th scope="col">Total Price</th>
+                                                <th scope="col">Detail</th>
+                                            </tr>
+                                            </thead>
+                                            <tfoot>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">User</th>
+                                                <th scope="col">Order Date</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Shipping fee</th>
+                                                <th scope="col">Total Price</th>
+                                                <th scope="col">Detail</th>
+                                            </tr>
+                                            </tfoot>
+                                            <tbody>
+                                            <tr th:each = "order,state : ${orderList}">
+                                                <td th:text="${state.count}"></td>
+                                                <th scope="row" th:text = "${order.id}"></th>
+                                                <th scope="row" th:text = "${order.username}"></th>
+                                                <th scope="row" th:text = "${order.orderDate}"></th>
+                                                <th scope="row" >
+                                                    <a th:if = "${order.orderStatus == 'Cancelled'}"  class="btn btn-white">Cancelled</a>
+                                                    <a th:if = "${order.orderStatus == 'Pending'}" th:href="@{/admin/update-order-status-completed/{id} (id = ${order.id})}" class="btn btn-warning">Pending</a>
+                                                    <a th:if = "${order.orderStatus == 'Completed'}" th:href = "@{/admin/update-order-status-pending/{id} (id = ${order.id})}" class="btn btn-primary">Completed</a>
+
+
+                                                </th>
+                                                <td th:text = "${order.shippingFee}"></td>
+                                                <td th:text = "${order.totalPrice}"></td>
+                                                <td>
+                                                    <a th:href="@{/admin/order-detail/{id}(id = ${order.id})}" class="btn btn-primary">
+                                                        Detail
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a th:replace="fragments :: scroll">
+</a>
+
+<!-- Logout Modal-->
+
+<!-- Bootstrap core JavaScript-->
+<div th:replace="fragments :: script"></div>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    let table = new DataTable('#dataTable');
+</script>
+<script th:src="@{/js/categories.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="layout :: header_shop">
+
+</head>
+<style>
+  .search_input{
+    display:none;
+  }
+</style>
+
+<body>
+<header th:replace="layout :: menu_shop">
+
+</header>
+
+
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumb_iner">
+                    <div class="breadcrumb_iner_item">
+                        <h2>Checkout</h2>
+                        <p>Home <span>-</span>Checkout</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="checkout_area padding_top">
+    <div class="container">
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>Billing Details</h3>
+                    <hr>
+                    <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                        <div class="col-md-12 form-group p_star">
+                            Full name :
+                            <span class="h5" th:text="${customer.firstName} + ' ' + ${customer.lastName}">
+                            </span>
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            Email :
+                            <span class="h5" th:text="${customer.username}">
+                            </span>
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            Email :
+                            <span class="h5" th:text="${customer.phoneNumber}">
+                            </span>
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            Address :
+                            <span class="h5" th:text="${customer.address}">
+                            </span>
+                        </div>
+                        <div class="creat_account col-md-12 form-group">
+                            <label >Update information </label>
+                            <a class="text-danger" th:href="@{/account}">here*</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <div class="order_box">
+                        <h3>Your Order</h3>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th scope="col" class="text-center">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${cart.cartItem}">
+                                    <td th:text="${item.product.name}"> </td>
+                                    <td class="text-center" th:text="'x '+${item.quantity}"></td>
+                                    <td class="text-center" th:text="'$'+${item.quantity} * ${item.product.costPrice}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </ul>
+                        <ul class="list list_2">
+                            <li>
+                                <a href="#">Subtotal
+                                    <span th:text="'$'+${cart.totalPrices}"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">Shipping
+                                    <span th:text="'5%Subtotal:$'+${cart.totalPrices}/100*5"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">Total
+                                    <span th:text="'$'+(${cart.totalPrices}+${cart.totalPrices}/100*5)" ></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="payment_item">
+                            <div class="radion_btn">
+                                <input type="radio" id="f-option5" name="selector" />
+                                <label for="f-option5">Cash payment</label>
+                                <div class="check"></div>
+                            </div>
+                            <p>
+                                Please send a check to Store Name, Store Street, Store Town,
+                                Store State / County, Store Postcode.
+                            </p>
+                        </div>
+                        <a class="btn_3" th:if="${cart.totalPrices == 0}" aria-readonly="true" >Proceed to Paypal</a>
+                        <a class="btn_3" th:if="${cart.totalPrices > 0}" th:href="@{/save-order}">Proceed to Paypal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<footer th:replace="layout :: footer_shop">
+</footer>
+</body>
+
+<div th:replace="layout :: script_shop"></div>
